@@ -1,21 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../common/auth-check.jsp" %>
-<%@ page import="com.icbt.dao.DashboardDAO" %>
+<%@ page import="com.icbt.dao.DBConnection" %>
+<%@ page import="java.sql.*" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%
-    DashboardDAO dashboardDAO = new DashboardDAO();
-    int totalReservations = dashboardDAO.getTotalReservations();
-    int todayCheckIns = dashboardDAO.getTodayCheckIns();
-    int todayCheckOuts = dashboardDAO.getTodayCheckOuts();
-    int activeReservations = dashboardDAO.getActiveReservations();
-    double totalRevenue = dashboardDAO.getTotalRevenue();
-    int pendingBills = dashboardDAO.getPendingBillsCount();
-    
     // Format today's date
     LocalDate today = LocalDate.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
     String formattedDate = today.format(formatter);
+    
+    // Get statistics from database
+    int totalReservations = 0;
+    int todayCheckIns = 0;
+    int todayCheckOuts = 0;
+    int activeReservations = 0;
+    int pendingBills = 0;
+    
+    try {
+        Connection con = DBConnection.getConnection();
+        
+        // Total reservations
+        PreparedStatement ps1 = con.prepareStatement("SELECT COUNT(*) FROM reservations");
+        ResultSet rs1 = ps1.executeQuery();
+        if (rs1.next()) totalReservations = rs1.getInt(1);
+        
+        // Today's check-ins
+        PreparedStatement ps2 = con.prepareStatement("SELECT COUNT(*) FROM reservations WHERE check_in = ?");
+        ps2.setDate(1, Date.valueOf(today));
+        ResultSet rs2 = ps2.executeQuery();
+        if (rs2.next()) todayCheckIns = rs2.getInt(1);
+        
+        // Today's check-outs
+        PreparedStatement ps3 = con.prepareStatement("SELECT COUNT(*) FROM reservations WHERE check_out = ?");
+        ps3.setDate(1, Date.valueOf(today));
+        ResultSet rs3 = ps3.executeQuery();
+        if (rs3.next()) todayCheckOuts = rs3.getInt(1);
+        
+        // Active reservations
+        PreparedStatement ps4 = con.prepareStatement("SELECT COUNT(*) FROM reservations WHERE check_in <= ? AND check_out >= ?");
+        ps4.setDate(1, Date.valueOf(today));
+        ps4.setDate(2, Date.valueOf(today));
+        ResultSet rs4 = ps4.executeQuery();
+        if (rs4.next()) activeReservations = rs4.getInt(1);
+        
+        // Pending bills
+        PreparedStatement ps5 = con.prepareStatement("SELECT COUNT(*) FROM bills WHERE payment_status = 'PENDING'");
+        ResultSet rs5 = ps5.executeQuery();
+        if (rs5.next()) pendingBills = rs5.getInt(1);
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
     
     // Calculate available rooms (assuming 80 total rooms)
     int totalRooms = 80;
