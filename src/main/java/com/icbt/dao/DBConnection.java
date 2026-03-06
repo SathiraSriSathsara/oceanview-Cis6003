@@ -17,9 +17,9 @@ public class DBConnection {
                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                 connection = DriverManager.getConnection(
-                	    "jdbc:mysql://mysql.niorbit.app:3306/oceanview_db?useSSL=false&serverTimezone=UTC&tcpKeepAlive=true",
-                	    "remote",
-                	    "rf]sK0QIO3.z}{[U"
+                	    "jdbc:mysql://localhost:3306/oceanview_db?useSSL=false&serverTimezone=UTC&tcpKeepAlive=true",
+                	    "root",
+                	    "password"
                 	);
 
                 System.out.println("Database connected successfully");
