@@ -1,3 +1,4 @@
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ page import="com.icbt.dao.ReservationDAO" %>
 <%@ page import="com.icbt.model.Reservation" %>
 <%@ include file="../common/auth-check.jsp" %>
@@ -11,9 +12,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Update Reservation</title>
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/dashboard.css">
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/form.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -33,7 +34,7 @@
 
         <h2>Update Reservation Details</h2>
 
-        <form action="<%=request.getContextPath()%>/updateReservation" method="post">
+        <form action="${pageContext.request.contextPath}/updateReservation" method="post">
 
             <input type="hidden" name="reservationNo" value="<%= r.getReservationNo() %>">
 
@@ -66,7 +67,7 @@
                 <button type="submit" style="flex: 1;">
                     <i class="fas fa-save"></i> Update Reservation
                 </button>
-                <a href="<%=request.getContextPath()%>/views/viewReservation.jsp" 
+                <a href="${pageContext.request.contextPath}/views/viewReservation.jsp" 
                    style="flex: 1; background: #6c757d; color: white; padding: 12px; text-align: center; 
                           text-decoration: none; border-radius: 8px; display: inline-flex; 
                           align-items: center; justify-content: center; gap: 8px;">

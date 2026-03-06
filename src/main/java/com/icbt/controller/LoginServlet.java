@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
             // Login success
             HttpSession session = request.getSession();
             session.setAttribute("username", username); // store user info in session
-            response.sendRedirect(request.getContextPath() + "/views/dashboard.jsp");
+            response.sendRedirect(request.getContextPath() + "/dashboard");
         } else {
             // Login failed → redirect back with error
             response.sendRedirect(request.getContextPath() + "/views/login.jsp?error=1");

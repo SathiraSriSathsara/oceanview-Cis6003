@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ include file="../common/auth-check.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Add Reservation · Ocean View Resort</title>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/dashboard.css">
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/addReservation.css">
+	<title>Add Reservation Â· Ocean View Resort</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/addReservation.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -39,7 +39,7 @@
     					</div>
 					<% } %>
 
-					<form action="<%= request.getContextPath() %>/addReservation" method="post" class="reservation-form">
+					<form action="${pageContext.request.contextPath}/addReservation" method="post" class="reservation-form">
 
 						<div class="form-group">
 							<label>Reservation No</label>

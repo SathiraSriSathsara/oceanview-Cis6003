@@ -33,11 +33,23 @@ Ocean View Resort Reservation System is a web-based application designed to mana
 ### 📊 Dashboard
 - Real-time statistics:
   - Total and available rooms
+   - Occupied, maintenance, and cleaning room counts
   - Today's check-ins and check-outs
   - Total reservations
+   - Total system users and revenue
   - Pending bills notifications
 - Room status overview
-- Dynamic date display
+- Dynamic date display and recent booking feed
+
+### 🛏️ Room Management (MVP)
+- Add rooms with room number, type, price, and status
+- Change room status in one click (AVAILABLE, OCCUPIED, MAINTENANCE, CLEANING)
+- Room inventory table for operational room-level tracking
+
+### 👥 User Account Management (MVP)
+- Create new user accounts (admin, staff, manager)
+- View and delete existing user accounts
+- Live user count shown on dashboard
 
 ### 🎨 User Interface
 - Modern, responsive design
@@ -156,6 +168,15 @@ oceanview-prod/
 - price_per_night (DOUBLE)
 ```
 
+#### `room_inventory`
+```sql
+- room_no (VARCHAR, PK)
+- room_type (VARCHAR)
+- price_per_night (DOUBLE)
+- status (VARCHAR)
+- created_at (TIMESTAMP)
+```
+
 #### `bills`
 ```sql
 - bill_id (INT, PK, AUTO_INCREMENT)
@@ -257,6 +278,16 @@ Password: password
 - Monitor today's check-ins and check-outs
 - Track available rooms
 - Check pending bills
+
+### Managing Rooms
+1. Go to **Rooms** from the sidebar
+2. Add room details (room number, type, price, status)
+3. Use the room list to change status instantly
+
+### Managing User Accounts
+1. Go to **User Accounts** from the sidebar
+2. Create a username, password, and role
+3. Remove obsolete accounts from the user list
 
 ## 🔒 Security Features
 

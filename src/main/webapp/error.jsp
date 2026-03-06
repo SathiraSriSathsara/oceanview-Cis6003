@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isErrorPage="true" %>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isErrorPage="true" isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error · Ocean View Resort</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
+    <title>Error Â· Ocean View Resort</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
@@ -120,7 +120,7 @@
         <% } %>
         
         <div class="btn-group">
-            <a href="<%= request.getContextPath() %>/views/dashboard.jsp" class="btn btn-primary">
+            <a href="${pageContext.request.contextPath}/dashboard" class="btn btn-primary">
                 <i class="fas fa-home"></i>
                 Go to Dashboard
             </a>

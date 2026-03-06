@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ include file="../common/auth-check.jsp" %>
 	<!DOCTYPE html>
 	<html>
@@ -69,17 +69,17 @@
         					<td class="action-buttons">
 
     							<!-- Update Button -->
-    							<a href="<%=request.getContextPath()%>/views/updateReservation.jsp?id=<%= r.getReservationNo() %>" 
+    							<a href="${pageContext.request.contextPath}/views/updateReservation.jsp?id=<%= r.getReservationNo() %>" 
        							class="btn-icon edit-btn" title="Update">
-        						✏️
+        						âœï¸
     							</a>
 
     							<!-- Delete Button -->
-    							<a href="<%=request.getContextPath()%>/deleteReservation?id=<%= r.getReservationNo() %>" 
+    							<a href="${pageContext.request.contextPath}/deleteReservation?id=<%= r.getReservationNo() %>" 
        							class="btn-icon delete-btn" 
        							onclick="return confirm('Are you sure you want to delete this reservation?');"
        							title="Delete">
-        						🗑️
+        						ðŸ—‘ï¸
     							</a>
 
 							</td>

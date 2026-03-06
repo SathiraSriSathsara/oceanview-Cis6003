@@ -1,37 +1,48 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ include file="../common/auth-check.jsp" %>
-	<!DOCTYPE html>
-	<html>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Billing Â· Ocean View Resort</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/dashboard.css">
+	<link rel="stylesheet" href="../css/bill.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>Billing</title>
-		<link rel="stylesheet" href="../css/style.css">
-		<link rel="stylesheet" href="../css/dashboard.css">
-		<link rel="stylesheet" href="../css/bill.css">
-	</head>
+<%@ include file="../common/navbar.jsp" %>
 
-	<body>
+<div class="main-content">
+	<div class="top-bar">
+		<h1 class="page-title"><i class="fas fa-file-invoice-dollar"></i> Billing Center</h1>
+	</div>
 
-		<%@ include file="../common/navbar.jsp" %>
+	<div class="billing-hero">
+		<div class="bill-card">
+			<h2>Generate Guest Invoice</h2>
+			<p class="bill-subtitle">Enter reservation number to calculate a professional invoice instantly.</p>
 
-			<div class="container">
-				<div class="bill-card">
-					<h2>Calculate Bill</h2>
+			<% if (request.getAttribute("error") != null) { %>
+				<div class="error-message"><%= request.getAttribute("error") %></div>
+			<% } %>
 
-					<form action="<%= request.getContextPath() %>/bill" method="post">
-
-						<div class="form-group">
-							<label>Reservation Number</label>
-							<input type="text" name="reservationNo" placeholder="Enter reservation number" required>
-						</div>
-
-						<button type="submit" class="btn">Calculate Bill</button>
-
-					</form>
+			<form action="${pageContext.request.contextPath}/bill" method="post">
+				<div class="form-group">
+					<label>Reservation Number</label>
+					<input type="text" name="reservationNo" placeholder="ex: RSV-1001" required>
 				</div>
-			</div>
 
-	</body>
+				<button type="submit" class="btn">
+					<i class="fas fa-calculator"></i>
+					Calculate Bill
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
 
-	</html>
+</body>
+</html>

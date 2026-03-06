@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ocean View Resort · Staff Login</title>
+    <title>Ocean View Resort Â· Staff Login</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/login.css">
     <!-- Font Awesome for icons -->
@@ -96,7 +96,7 @@
                 </div>
             <% } %>
             
-            <form action="<%= request.getContextPath() %>/LoginServlet" method="post" class="login-form" id="loginForm">
+            <form action="${pageContext.request.contextPath}/LoginServlet" method="post" class="login-form" id="loginForm">
                 <div class="input-group">
                     <label for="username">
                         <i class="fas fa-user"></i>

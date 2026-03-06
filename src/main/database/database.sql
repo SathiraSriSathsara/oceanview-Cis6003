@@ -104,6 +104,37 @@ INSERT INTO `rooms` VALUES ('Deluxe',12000),('Standard',8000),('Suite',20000);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `room_inventory`
+--
+
+DROP TABLE IF EXISTS `room_inventory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `room_inventory` (
+  `room_no` varchar(20) NOT NULL,
+  `room_type` varchar(50) NOT NULL,
+  `price_per_night` double NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'AVAILABLE',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`room_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `room_inventory`
+--
+
+LOCK TABLES `room_inventory` WRITE;
+/*!40000 ALTER TABLE `room_inventory` DISABLE KEYS */;
+INSERT INTO `room_inventory` VALUES
+('A-101','Standard',8000,'AVAILABLE','2026-03-06 04:00:00'),
+('A-102','Standard',8000,'OCCUPIED','2026-03-06 04:00:00'),
+('B-201','Deluxe',12000,'CLEANING','2026-03-06 04:00:00'),
+('C-301','Suite',20000,'MAINTENANCE','2026-03-06 04:00:00');
+/*!40000 ALTER TABLE `room_inventory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 

@@ -150,6 +150,23 @@ html, body {
     margin-right: 8px;
 }
 
+.link-view {
+    color: var(--primary-color);
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link-view:hover {
+    text-decoration: underline;
+}
+
+.badge {
+    color: var(--gray-700);
+    font-size: 12px;
+    font-weight: 600;
+}
+
 .card-body {
     padding: 20px;
     width: 100%;
