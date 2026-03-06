@@ -1,0 +1,65 @@
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<display-name>LoginServlet</display-name>
+		<description></description>
+		<servlet-class>com.icbt.controller.LoginServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ReservationServlet</servlet-name>
+		<display-name>ReservationServlet</display-name>
+		<description></description>
+		<servlet-class>com.icbt.controller.ReservationServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BillServlet</servlet-name>
+		<display-name>BillServlet</display-name>
+		<description></description>
+		<servlet-class>com.icbt.controller.BillServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LogoutServlet</servlet-name>
+		<display-name>LogoutServlet</display-name>
+		<description></description>
+		<servlet-class>com.icbt.controller.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UpdateReservationServlet</servlet-name>
+		<display-name>UpdateReservationServlet</display-name>
+		<description></description>
+		<servlet-class>com.icbt.controller.UpdateReservationServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>DeleteReservationServlet</servlet-name>
+		<display-name>DeleteReservationServlet</display-name>
+		<description></description>
+		<servlet-class>com.icbt.controller.DeleteReservationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/LoginServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReservationServlet</servlet-name>
+		<url-pattern>/ReservationServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BillServlet</servlet-name>
+		<url-pattern>/BillServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LogoutServlet</servlet-name>
+		<url-pattern>/LogoutServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UpdateReservationServlet</servlet-name>
+		<url-pattern>/UpdateReservationServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteReservationServlet</servlet-name>
+		<url-pattern>/DeleteReservationServlet</url-pattern>
+	</servlet-mapping>
+</web-app>

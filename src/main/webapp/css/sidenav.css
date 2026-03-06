@@ -1,0 +1,188 @@
+/* ===== SIDENAV STYLES ===== */
+.sidenav {
+    width: var(--sidenav-width);
+    background: linear-gradient(180deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    z-index: 1000;
+    left: 0;
+    top: 0;
+}
+
+.sidenav::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidenav::-webkit-scrollbar-track {
+    background: var(--primary-dark);
+}
+
+.sidenav::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 5px;
+}
+
+.sidenav-header {
+    padding: 25px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-container {
+    text-align: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    display: block;
+    letter-spacing: 1px;
+}
+
+.logo-sub {
+    font-size: 14px;
+    opacity: 0.8;
+    display: block;
+    margin-top: 5px;
+}
+
+.sidenav-user {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+    font-size: 40px;
+    margin-right: 15px;
+    color: var(--secondary-color);
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-name {
+    font-weight: 600;
+    display: block;
+    font-size: 16px;
+}
+
+.user-role {
+    font-size: 12px;
+    opacity: 0.7;
+    display: block;
+    margin-top: 3px;
+}
+
+.sidenav-menu {
+    padding: 20px 0;
+}
+
+.menu-section {
+    margin: 20px 0;
+}
+
+.menu-section-title {
+    padding: 10px 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.5;
+    font-weight: 600;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: var(--transition);
+    position: relative;
+}
+
+.menu-item i {
+    width: 30px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.menu-item span {
+    flex: 1;
+    font-size: 15px;
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding-left: 25px;
+}
+
+.menu-item.active {
+    background: var(--secondary-color);
+    color: var(--primary-dark);
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.menu-item.active i {
+    color: var(--primary-dark);
+}
+
+.menu-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: white;
+}
+
+.sidenav-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-btn {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.logout-btn:hover {
+    background: var(--danger-color);
+    color: white;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .sidenav {
+        width: var(--sidenav-collapsed);
+    }
+
+    .sidenav:hover {
+        width: var(--sidenav-width);
+    }
+
+    .sidenav .user-info,
+    .sidenav .menu-item span,
+    .sidenav .logo-sub,
+    .sidenav .menu-section-title {
+        display: none;
+    }
+
+    .sidenav:hover .user-info,
+    .sidenav:hover .menu-item span,
+    .sidenav:hover .logo-sub,
+    .sidenav:hover .menu-section-title {
+        display: block;
+    }
+}
