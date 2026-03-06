@@ -6,9 +6,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Help</title>
-		<link rel="stylesheet" href="../css/style.css">
-		<link rel="stylesheet" href="../css/dashboard.css">
-		<link rel="stylesheet" href="../css/help.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/help.css">
 	</head>
 
 	<body>

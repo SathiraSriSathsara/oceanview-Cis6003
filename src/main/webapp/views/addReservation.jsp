@@ -5,7 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Add Reservation Â· Ocean View Resort</title>
+	<title>Add Reservation  -  Ocean View Resort</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/addReservation.css">
@@ -116,3 +116,4 @@
 	</body>
 
 	</html>
+

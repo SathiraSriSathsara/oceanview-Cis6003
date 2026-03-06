@@ -6,9 +6,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>View Reservations</title>
-		<link rel="stylesheet" href="../css/style.css">
-		<link rel="stylesheet" href="../css/dashboard.css">
-		<link rel="stylesheet" href="../css/viewReservation.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/viewReservation.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 	</head>
 
 	<body>
@@ -32,8 +33,8 @@
 		<%@ page import="com.icbt.model.Reservation" %>
 		<%@ page import="com.icbt.dao.ReservationDAO" %>
 
-			<div class="container">
-				<div class="table-card">
+			<div class="main-content">
+				<div class="table-card reservation-table-card">
 					<h2>Reservation List</h2>
 
 					<table class="reservation-table">
@@ -68,19 +69,19 @@
         					<td><%= r.getCheckOut() %></td>
         					<td class="action-buttons">
 
-    							<!-- Update Button -->
-    							<a href="${pageContext.request.contextPath}/views/updateReservation.jsp?id=<%= r.getReservationNo() %>" 
-       							class="btn-icon edit-btn" title="Update">
-        						âœï¸
-    							</a>
+								<!-- Update Button -->
+								<a href="${pageContext.request.contextPath}/views/updateReservation.jsp?id=<%= r.getReservationNo() %>"
+								class="btn-icon edit-btn" title="Update">
+									<i class="fas fa-pen"></i>
+								</a>
 
-    							<!-- Delete Button -->
-    							<a href="${pageContext.request.contextPath}/deleteReservation?id=<%= r.getReservationNo() %>" 
-       							class="btn-icon delete-btn" 
-       							onclick="return confirm('Are you sure you want to delete this reservation?');"
-       							title="Delete">
-        						ðŸ—‘ï¸
-    							</a>
+								<!-- Delete Button -->
+								<a href="${pageContext.request.contextPath}/deleteReservation?id=<%= r.getReservationNo() %>"
+								class="btn-icon delete-btn"
+								onclick="return confirm('Are you sure you want to delete this reservation?');"
+								title="Delete">
+									<i class="fas fa-trash"></i>
+								</a>
 
 							</td>
 						</tr>

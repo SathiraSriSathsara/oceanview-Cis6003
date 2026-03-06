@@ -1,24 +1,17 @@
 @charset "UTF-8";
 
-/* Container */
-.container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-/* Card Style */
-.table-card {
+/* Page-specific table card */
+.reservation-table-card {
     background: white;
     padding: 30px;
-    width: 95%;
+    width: 100%;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    overflow-x: auto; /* Important for many columns */
+    overflow-x: auto;
 }
 
 /* Heading */
-.table-card h2 {
+.reservation-table-card h2 {
     text-align: center;
     margin-bottom: 25px;
     color: #2c3e50;
@@ -57,7 +50,7 @@
 }
 
 /* Responsive Scroll */
-.table-card::-webkit-scrollbar {
+.reservation-table-card::-webkit-scrollbar {
     height: 8px;
 }
 
@@ -69,10 +62,14 @@
 
 .btn-icon {
     text-decoration: none;
-    font-size: 18px;
-    margin: 0 6px;
-    padding: 6px 8px;
+    font-size: 14px;
+    margin: 0 4px;
+    width: 40px;
+    height: 40px;
     border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     transition: 0.3s ease;
 }
 

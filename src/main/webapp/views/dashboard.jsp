@@ -32,10 +32,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Staff Dashboard Â· Ocean View Resort</title>
+    <title>Staff Dashboard  -  Ocean View Resort</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -49,10 +49,6 @@
             Dashboard
         </h1>
         <div class="top-bar-actions">
-            <div class="notification-badge">
-                <i class="fas fa-bell"></i>
-                <span class="badge-count"><%= pendingBills %></span>
-            </div>
             <div class="date-display">
                 <i class="far fa-calendar-alt"></i>
                 <%= formattedDate %>
@@ -185,7 +181,7 @@
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
                             <div style="font-weight: 600;"><%= r.getGuestName() %></div>
-                            <div style="font-size: 13px; color: var(--gray-600);"><%= r.getRoomType() %> Â· <%= nights %> nights</div>
+                            <div style="font-size: 13px; color: var(--gray-600);"><%= r.getRoomType() %>  -  <%= nights %> nights</div>
                         </div>
                         <span style="background: #d4edda; color: #155724; padding: 5px 10px; border-radius: 20px; font-size: 12px;">Booked</span>
                     </div>
@@ -222,10 +218,11 @@
     </div>
 
     <footer class="dashboard-footer">
-        <p>Ocean View Resort Â· Operational Dashboard</p>
+        <p>Ocean View Resort  -  Operational Dashboard</p>
     </footer>
 </div>
 
 </body>
 </html>
+
 

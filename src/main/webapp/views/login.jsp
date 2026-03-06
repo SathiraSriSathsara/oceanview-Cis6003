@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ocean View Resort Â· Staff Login</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/login.css">
+    <title>Ocean View Resort  -  Staff Login</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts for Inter font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="../js/validation.js" defer></script>
+    <script src="${pageContext.request.contextPath}/js/validation.js" defer></script>
 </head>
 <body>
 
@@ -218,3 +218,4 @@ function showValidationError(message) {
 
 </body>
 </html>
+
