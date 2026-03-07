@@ -474,6 +474,404 @@ Ocean View is a comprehensive Hotel Management System designed to streamline hot
 
 ---
 
+## Database Design
+
+### Database Overview
+
+The Ocean View Hotel Management System uses a MySQL 8.0 database with normalized schema. The database consists of 5 main tables designed to manage users, rooms, reservations, bills, and inventory.
+
+**Database Name**: `oceanview_db`  
+**Character Set**: UTF8MB4  
+**Default Collation**: utf8mb4_0900_ai_ci
+
+---
+
+### Entity Relationship Diagram (ER Diagram)
+
+```
+┌─────────────────────┐          ┌─────────────────────────┐
+│      USERS          │          │      ROOMS              │
+├─────────────────────┤          ├─────────────────────────┤
+│ id (PK)             │          │ room_type (PK)          │
+│ username            │          │ price_per_night         │
+│ password            │          └─────────────────────────┘
+│ role                │                      ▲
+└─────────────────────┘                      │
+                                             │
+                                             │ (1:M)
+                                             │ references
+                                             │
+┌─────────────────────────────────────────────────────────────────┐
+│                    RESERVATIONS                                │
+├─────────────────────────────────────────────────────────────────┤
+│ id (PK)                                                         │
+│ reservation_no                                                  │
+│ guest_name                                                      │
+│ address                                                         │
+│ contact                                                         │
+│ room_type (FK) ─────────────────────────────────────────────────┤
+│ check_in                                                        │
+│ check_out                                                       │
+└─────────────────────────────────────────────────────────────────┘
+         │
+         │ (1:M)
+         │ creates
+         │
+         ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      BILLS                                      │
+├─────────────────────────────────────────────────────────────────┤
+│ bill_id (PK)                                                    │
+│ reservation_no                                                  │
+│ guest_name                                                      │
+│ room_type                                                       │
+│ check_in                                                        │
+│ check_out                                                       │
+│ number_of_nights                                                │
+│ price_per_night                                                 │
+│ total_amount                                                    │
+│ bill_date                                                       │
+│ payment_status                                                  │
+└─────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────┐
+│      ROOM_INVENTORY                  │
+├──────────────────────────────────────┤
+│ room_no (PK)                         │
+│ room_type (FK)                       │
+│ price_per_night                      │
+│ status                               │
+│ created_at                           │
+└──────────────────────────────────────┘
+         │
+         │ (M:1)
+         │ belongs to
+         │
+         ▼
+    ROOMS table
+```
+
+---
+
+### Database Schema
+
+#### 1. USERS Table
+**Purpose**: Store system user credentials and roles
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| `id` | INT | PRIMARY KEY, AUTO_INCREMENT | Unique user identifier |
+| `username` | VARCHAR(50) | NOT NULL | User login name |
+| `password` | VARCHAR(50) | NOT NULL | User password (should be hashed in production) |
+| `role` | VARCHAR(20) | NOT NULL | User role (admin, staff) |
+
+**Sample Data**:
+```sql
+INSERT INTO users VALUES (1, 'admin', 'password', 'admin');
+```
+
+**Indexes**: PRIMARY KEY on `id`
+
+---
+
+#### 2. ROOMS Table
+**Purpose**: Store room types and their pricing information
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| `room_type` | VARCHAR(50) | PRIMARY KEY | Room type identifier (Standard, Deluxe, Suite) |
+| `price_per_night` | DOUBLE | NOT NULL | Nightly rate for the room type |
+
+**Sample Data**:
+```sql
+INSERT INTO rooms VALUES 
+('Standard', 8000),
+('Deluxe', 12000),
+('Suite', 20000);
+```
+
+**Indexes**: PRIMARY KEY on `room_type`
+
+**Relationships**:
+- Referenced by `reservations.room_type`
+- Referenced by `room_inventory.room_type`
+
+---
+
+#### 3. RESERVATIONS Table
+**Purpose**: Store guest reservation information
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| `id` | INT | PRIMARY KEY, AUTO_INCREMENT | Unique reservation record ID |
+| `reservation_no` | VARCHAR(50) | NOT NULL | Reservation number (unique identifier) |
+| `guest_name` | VARCHAR(100) | NOT NULL | Guest's full name |
+| `address` | VARCHAR(100) | NOT NULL | Guest's address |
+| `contact` | VARCHAR(20) | NOT NULL | Guest's contact number |
+| `room_type` | ENUM('Standard','Deluxe','Suite') | NOT NULL, FK | Type of room reserved |
+| `check_in` | DATE | NOT NULL | Reservation check-in date |
+| `check_out` | DATE | NOT NULL | Reservation check-out date |
+
+**Indexes**:
+- PRIMARY KEY on `id`
+- INDEX `room_type_idx` on `room_type`
+
+**Constraints**:
+- Foreign Key: `room_type` references `rooms.room_type`
+- Date Validation: `check_out` must be after `check_in`
+
+**Sample Data**:
+```sql
+INSERT INTO reservations VALUES 
+(1, '1', 'test', '', 'test', 'Standard', '2026-02-26', '2026-03-20'),
+(19, '7', 'Dasun Alwis', 'test', '0774563215', 'Deluxe', '2026-03-08', '2026-03-10');
+```
+
+---
+
+#### 4. BILLS Table
+**Purpose**: Store billing information for reservations
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| `bill_id` | INT | PRIMARY KEY, AUTO_INCREMENT | Unique bill identifier |
+| `reservation_no` | VARCHAR(50) | NOT NULL | Reference to reservation |
+| `guest_name` | VARCHAR(100) | NOT NULL | Guest's name (denormalized from reservation) |
+| `room_type` | VARCHAR(50) | NOT NULL | Room type (denormalized from reservation) |
+| `check_in` | DATE | NOT NULL | Check-in date (denormalized from reservation) |
+| `check_out` | DATE | NOT NULL | Check-out date (denormalized from reservation) |
+| `number_of_nights` | INT | NOT NULL | Calculated: days between check-out and check-in |
+| `price_per_night` | DOUBLE | NOT NULL | Room rate at bill creation time |
+| `total_amount` | DOUBLE | NOT NULL | Calculated: number_of_nights × price_per_night |
+| `bill_date` | DATE | NOT NULL | Date bill was generated |
+| `payment_status` | VARCHAR(20) | NOT NULL | Payment status (PENDING, PAID, CANCELLED) |
+
+**Indexes**: PRIMARY KEY on `bill_id`
+
+**Calculation Logic**:
+- `number_of_nights` = DATEDIFF(check_out, check_in)
+- `total_amount` = number_of_nights × price_per_night
+
+**Sample Data**:
+```sql
+INSERT INTO bills VALUES 
+(1, '7', 'Dasun Alwis', 'Deluxe', '2026-03-08', '2026-03-10', 
+ 2, 12000, 24000, '2026-03-05', 'PENDING');
+```
+
+---
+
+#### 5. ROOM_INVENTORY Table
+**Purpose**: Track individual room status and availability
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| `room_no` | VARCHAR(20) | PRIMARY KEY | Physical room number (e.g., A-101) |
+| `room_type` | VARCHAR(50) | NOT NULL, FK | Room type classification |
+| `price_per_night` | DOUBLE | NOT NULL | Current room rate |
+| `status` | VARCHAR(20) | NOT NULL, DEFAULT 'AVAILABLE' | Current room status |
+| `created_at` | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Record creation timestamp |
+
+**Indexes**: 
+- PRIMARY KEY on `room_no`
+- FOREIGN KEY on `room_type` references `rooms.room_type`
+
+**Status Values**:
+- `AVAILABLE`: Room ready for guests
+- `OCCUPIED`: Room currently occupied
+- `CLEANING`: Room being cleaned
+- `MAINTENANCE`: Room under maintenance
+
+**Sample Data**:
+```sql
+INSERT INTO room_inventory VALUES 
+('A-101', 'Standard', 8000, 'AVAILABLE', '2026-03-06 04:00:00'),
+('A-102', 'Standard', 8000, 'OCCUPIED', '2026-03-06 04:00:00'),
+('B-201', 'Deluxe', 12000, 'CLEANING', '2026-03-06 04:00:00'),
+('C-301', 'Suite', 20000, 'MAINTENANCE', '2026-03-06 04:00:00');
+```
+
+**Relationships**:
+- Foreign Key: `room_type` references `rooms.room_type`
+
+---
+
+### Database Normalization
+
+The database follows **Third Normal Form (3NF)** design principles:
+
+#### 1. **First Normal Form (1NF)**
+- All tables have atomic columns (single values, not arrays)
+- Each row is uniquely identifiable
+- No repeating groups
+
+#### 2. **Second Normal Form (2NF)**
+- Meets 1NF requirements
+- All non-key attributes depend on the entire primary key
+- No partial dependencies
+
+#### 3. **Third Normal Form (3NF)**
+- Meets 2NF requirements
+- No transitive dependencies
+- Non-key attributes depend only on the primary key
+
+**Normalization Example**:
+- `rooms` table stores room type info separately
+- `reservations` references `room_type`, avoiding data duplication
+- `room_inventory` maintains individual room tracking separately
+
+---
+
+### Key Database Design Decisions
+
+1. **Denormalization in BILLS Table**
+   - Guest name, dates, and prices are copied from reservation and rooms
+   - **Rationale**: Historical data preservation (prices may change over time)
+   - **Trade-off**: Slight redundancy for audit trail integrity
+
+2. **ENUM Type for Room Types in Reservations**
+   - Restricts room_type to predefined values
+   - **Rationale**: Data integrity, query optimization
+   - **Values**: 'Standard', 'Deluxe', 'Suite'
+
+3. **Separate ROOM_INVENTORY Table**
+   - Tracks individual rooms separate from room types
+   - **Rationale**: Allows per-room status tracking
+   - **Benefit**: Can manage specific room maintenance, cleaning status
+
+4. **AUTO_INCREMENT Primary Keys**
+   - Used for users, reservations, and bills
+   - **Rationale**: System-generated IDs ensure uniqueness
+   - **Performance**: Integer keys are more efficient than strings
+
+5. **Indexes on Foreign Keys**
+   - `room_type_idx` on reservations table
+   - **Rationale**: Faster joins and lookups
+
+6. **Timestamps with CURRENT_TIMESTAMP**
+   - `created_at` in room_inventory
+   - **Rationale**: Track record creation time automatically
+
+---
+
+### Database Constraints
+
+#### Primary Key Constraints
+```sql
+-- Users
+PRIMARY KEY (id)
+
+-- Rooms
+PRIMARY KEY (room_type)
+
+-- Reservations
+PRIMARY KEY (id)
+
+-- Bills
+PRIMARY KEY (bill_id)
+
+-- Room Inventory
+PRIMARY KEY (room_no)
+```
+
+#### Foreign Key Constraints
+```sql
+-- Reservations references Rooms
+ALTER TABLE reservations ADD CONSTRAINT fk_res_room 
+FOREIGN KEY (room_type) REFERENCES rooms(room_type);
+
+-- Room Inventory references Rooms
+ALTER TABLE room_inventory ADD CONSTRAINT fk_inv_room 
+FOREIGN KEY (room_type) REFERENCES rooms(room_type);
+```
+
+#### Unique Constraints (Recommended)
+```sql
+-- Ensure unique usernames
+ALTER TABLE users ADD UNIQUE (username);
+
+-- Ensure unique room numbers
+ALTER TABLE room_inventory ADD UNIQUE (room_no);
+```
+
+---
+
+### Data Relationships
+
+#### One-to-Many Relationships
+
+**ROOMS → RESERVATIONS**
+- One room type can have many reservations
+- Relationship: `rooms.room_type` = `reservations.room_type`
+
+**RESERVATIONS → BILLS**
+- One reservation generates one bill
+- Relationship: Via `reservation_no`
+
+**ROOMS → ROOM_INVENTORY**
+- One room type has many physical rooms
+- Relationship: `rooms.room_type` = `room_inventory.room_type`
+
+---
+
+### Sample Database Queries
+
+#### View All Reservations for a Guest
+```sql
+SELECT * FROM reservations 
+WHERE guest_name = 'Dasun Alwis'
+ORDER BY check_in DESC;
+```
+
+#### Calculate Revenue by Room Type
+```sql
+SELECT room_type, COUNT(*) as total_bills, SUM(total_amount) as total_revenue
+FROM bills
+GROUP BY room_type
+ORDER BY total_revenue DESC;
+```
+
+#### Find Available Rooms
+```sql
+SELECT room_no, room_type, price_per_night
+FROM room_inventory
+WHERE status = 'AVAILABLE'
+ORDER BY room_type;
+```
+
+#### Get Reservation with Associated Bill
+```sql
+SELECT r.reservation_no, r.guest_name, r.room_type, r.check_in, r.check_out,
+       b.bill_id, b.total_amount, b.payment_status
+FROM reservations r
+LEFT JOIN bills b ON r.reservation_no = b.reservation_no
+WHERE r.id = 19;
+```
+
+#### List Pending Payments
+```sql
+SELECT bill_id, guest_name, room_type, total_amount, bill_date
+FROM bills
+WHERE payment_status = 'PENDING'
+ORDER BY bill_date ASC;
+```
+
+---
+
+### Backup and Recovery
+
+**Backup Command**:
+```bash
+mysqldump -u username -p oceanview_db > oceanview_backup.sql
+```
+
+**Restore Command**:
+```bash
+mysql -u username -p oceanview_db < oceanview_backup.sql
+```
+
+---
+
 ## Test Plan and Test-Driven Development
 
 ### Testing Strategy
