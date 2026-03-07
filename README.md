@@ -21,7 +21,8 @@ Ocean View is a comprehensive Hotel Management System designed to streamline hot
 2. [Design Decisions and Assumptions](#design-decisions-and-assumptions)
 3. [Test Plan and Test-Driven Development](#test-plan-and-test-driven-development)
 4. [Application Screenshots](#application-screenshots)
-5. [Installation and Setup](#installation-and-setup)
+5. [Comprehensive User Manual](#comprehensive-user-manual)
+6. [Installation and Setup](#installation-and-setup)
 
 ---
 
@@ -1491,6 +1492,381 @@ The following screenshots demonstrate the complete functionality of the Ocean Vi
 ![Additional View 2](screen-shots/Screenshot%202026-03-07%20034357.png)
 ![Additional View 3](screen-shots/Screenshot%202026-03-07%20034413.png)
 *Additional system views and interfaces*
+
+---
+
+## Comprehensive User Manual
+
+### 1. Purpose of the User Manual
+
+This section provides a complete operational guide for hotel staff and administrators to use the Ocean View Hotel Management System in day-to-day work.
+
+**Target users**:
+- Reception and front desk staff
+- Billing and accounts staff
+- Hotel administrators
+
+**Main modules covered**:
+- Authentication (Login/Logout)
+- Dashboard monitoring
+- Reservation management
+- Room and room inventory management
+- Bill generation and payment status tracking
+- User administration
+- Help and support navigation
+
+---
+
+### 2. System Access
+
+#### 2.1 Login URL
+Use the following URL after deployment:
+
+```text
+http://localhost:8080/oceanview/login.jsp
+```
+
+#### 2.2 Login Credentials
+Use a valid system account.
+
+Example default account:
+
+```text
+Username: admin
+Password: password
+```
+
+#### 2.3 Login Screen
+![Login Page - User Manual](screen-shots/Screenshot%202026-03-07%20035007.png)
+
+**Fields and actions**:
+- `Username`: Enter your assigned username
+- `Password`: Enter your password
+- `Login` button: Submit credentials and start session
+
+---
+
+### 3. Quick Start Workflow
+
+Use this quick operational order for normal hotel operations:
+
+1. Login to the system
+2. Check Dashboard for current status
+3. Add or update reservations
+4. Verify room availability and room status
+5. Generate bill for guest at checkout
+6. Update payment status
+7. Logout after work
+
+---
+
+### 4. Dashboard Module
+
+#### 4.1 Purpose
+Dashboard provides a snapshot of hotel operations, including reservation counts and financial indicators.
+
+#### 4.2 Dashboard Screen
+![Dashboard - User Manual](screen-shots/Screenshot%202026-03-07%20033732.png)
+
+#### 4.3 How to Use
+1. Open dashboard immediately after login
+2. Review key cards/widgets
+3. Identify pending tasks (new reservations, pending bills, room status)
+4. Navigate using side menu to required module
+
+#### 4.4 Best Practice
+- Refresh dashboard before shift handover
+- Use dashboard as daily summary for admin reporting
+
+---
+
+### 5. Reservation Management Module
+
+#### 5.1 Add Reservation
+
+**Screen**:
+![Add Reservation - User Manual](screen-shots/Screenshot%202026-03-07%20033809.png)
+
+**Step-by-step**:
+1. Open `Add Reservation`
+2. Enter reservation number
+3. Enter guest name, address, and contact number
+4. Select room type
+5. Select check-in and check-out dates
+6. Click save/submit
+
+**Validation rules**:
+- All mandatory fields must be filled
+- Contact number must be in valid format
+- Check-out date must be after check-in date
+
+**Expected outcome**:
+- Reservation record is stored in database
+- Confirmation appears or user is redirected to reservation view
+
+#### 5.2 View Reservations
+
+**Screen**:
+![View Reservations - User Manual](screen-shots/Screenshot%202026-03-07%20033835.png)
+
+**What you can do**:
+- View complete list of reservations
+- Search/filter by guest, reservation number, or room type
+- Open update or delete actions for selected record
+
+#### 5.3 Update Reservation
+
+**Screen**:
+![Update Reservation - User Manual](screen-shots/Screenshot%202026-03-07%20033857.png)
+
+**Steps**:
+1. Open reservation list
+2. Select reservation to edit
+3. Modify required fields
+4. Save changes
+5. Verify updated values in the reservation table
+
+#### 5.4 Reservation Details View
+
+**Screen**:
+![Reservation Details - User Manual](screen-shots/Screenshot%202026-03-07%20033914.png)
+
+Use this page to confirm complete guest and stay details before billing or check-in decisions.
+
+#### 5.5 Operational Tips
+- Always verify contact number before saving
+- Confirm dates twice to avoid billing mistakes
+- Use reservation number consistently when generating bills
+
+---
+
+### 6. Room Management Module
+
+#### 6.1 Room Types and Pricing
+
+**Room Management Screen**:
+![Room Management - User Manual](screen-shots/Screenshot%202026-03-07%20033933.png)
+
+Use this module to maintain room categories and nightly rates.
+
+#### 6.2 Add Room Type
+
+**Screen**:
+![Add Room Type - User Manual](screen-shots/Screenshot%202026-03-07%20033953.png)
+
+**Steps**:
+1. Open room management
+2. Click add room type
+3. Enter room type name
+4. Enter price per night
+5. Save record
+
+#### 6.3 Update Room Type / Price
+
+**Screen**:
+![Update Room - User Manual](screen-shots/Screenshot%202026-03-07%20034009.png)
+
+**Steps**:
+1. Select room type to edit
+2. Update price or configuration
+3. Save changes
+4. Confirm update in room list
+
+#### 6.4 Inventory and Status Concepts
+Room inventory status values generally include:
+- `AVAILABLE`
+- `OCCUPIED`
+- `CLEANING`
+- `MAINTENANCE`
+
+Use inventory status to prevent assigning unavailable rooms.
+
+---
+
+### 7. Billing Module
+
+#### 7.1 Generate Bill
+
+**Screen**:
+![Bill Generation - User Manual](screen-shots/Screenshot%202026-03-07%20034044.png)
+
+**Steps**:
+1. Open bill generation page
+2. Enter reservation number
+3. Submit to fetch reservation details
+4. System calculates number of nights
+5. System calculates total amount
+6. Save generated bill
+
+#### 7.2 View Bill Result
+
+**Screen**:
+![Bill Result - User Manual](screen-shots/Screenshot%202026-03-07%20034112.png)
+
+This page shows generated bill details and payment information.
+
+#### 7.3 Bill Details and Verification
+
+**Screen**:
+![Bill Details - User Manual](screen-shots/Screenshot%202026-03-07%20034129.png)
+
+Verify:
+- Reservation number
+- Guest name
+- Room type
+- Check-in/check-out
+- Number of nights
+- Price per night
+- Total amount
+- Payment status
+
+#### 7.4 Billing Formula
+```text
+Number of Nights = Check-Out Date - Check-In Date
+Total Amount = Number of Nights x Price Per Night
+```
+
+#### 7.5 Billing Best Practices
+- Verify reservation dates before bill generation
+- Confirm room type rate against current room settings
+- Update payment status immediately after payment is received
+
+---
+
+### 8. User Management Module
+
+#### 8.1 User List and Access Control
+
+**Screen**:
+![User Management - User Manual](screen-shots/Screenshot%202026-03-07%20034201.png)
+
+Use this module to manage operator and admin accounts.
+
+#### 8.2 Add User
+
+**Screen**:
+![Add User - User Manual](screen-shots/Screenshot%202026-03-07%20034219.png)
+
+**Steps**:
+1. Open user management
+2. Click add user
+3. Enter username and password
+4. Assign role
+5. Save user
+
+#### 8.3 Update User
+
+**Screen**:
+![Update User - User Manual](screen-shots/Screenshot%202026-03-07%20034245.png)
+
+**Steps**:
+1. Select target user
+2. Edit username, password, or role
+3. Save changes
+
+#### 8.4 User Management Best Practices
+- Avoid sharing one account among multiple staff
+- Change passwords periodically
+- Keep at least one admin account active
+
+---
+
+### 9. Navigation and Help Module
+
+#### 9.1 Help Page
+
+**Screen**:
+![Help Page - User Manual](screen-shots/Screenshot%202026-03-07%20034303.png)
+
+Use this page for in-application guidance and operational notes.
+
+#### 9.2 Side Navigation Menu
+
+**Screen**:
+![Navigation - User Manual](screen-shots/Screenshot%202026-03-07%20034318.png)
+
+Main navigation provides direct access to:
+- Dashboard
+- Reservations
+- Rooms
+- Bills
+- Users
+- Help
+
+#### 9.3 Additional UI Views
+![Additional View 1 - User Manual](screen-shots/Screenshot%202026-03-07%20034339.png)
+![Additional View 2 - User Manual](screen-shots/Screenshot%202026-03-07%20034357.png)
+![Additional View 3 - User Manual](screen-shots/Screenshot%202026-03-07%20034413.png)
+
+These screens represent supplementary interfaces and workflow states used by staff during operations.
+
+---
+
+### 10. Logout and Session Safety
+
+1. Complete all pending updates
+2. Click logout from navigation
+3. Confirm redirect to login page
+4. Close browser on shared computers
+
+**Important**:
+- Do not leave dashboard open on public/shared devices
+- Re-login if session expires
+
+---
+
+### 11. Error Handling and Troubleshooting
+
+#### 11.1 Common Issues and Fixes
+
+**Issue**: Login fails with valid username format  
+**Action**: Verify password case sensitivity and check if user exists in `users` table
+
+**Issue**: Reservation not saved  
+**Action**: Confirm all required fields are filled and date range is valid
+
+**Issue**: Bill total seems incorrect  
+**Action**: Recheck check-in/check-out dates and room rate configuration
+
+**Issue**: Room not available  
+**Action**: Check room inventory status (`AVAILABLE`, `OCCUPIED`, `CLEANING`, `MAINTENANCE`)
+
+**Issue**: Database connectivity problem  
+**Action**: Verify MySQL service status and `DBConnection.java` credentials
+
+#### 11.2 Error Page
+If a system error occurs, the application redirects to:
+
+```text
+error.jsp
+```
+
+Collect screenshot and timestamp of the error before reporting to technical support.
+
+---
+
+### 12. Daily Operations Checklist
+
+Use this checklist at each shift:
+
+1. Login and review dashboard
+2. Confirm room inventory readiness
+3. Process new reservations
+4. Update reservation changes/cancellations
+5. Generate checkout bills
+6. Mark paid bills correctly
+7. Verify no pending critical tasks
+8. Logout securely
+
+---
+
+### 13. User Manual Assumptions
+
+1. User has valid account credentials
+2. Database is running and accessible
+3. Room types are pre-configured
+4. Staff follows standard reservation and billing process
+5. Application is deployed at `/oceanview`
 
 ---
 
